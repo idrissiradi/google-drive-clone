@@ -6,6 +6,7 @@ import AppsIcon from "@material-ui/icons/Apps";
 import HelpOutlineIcon from "@material-ui/icons/HelpOutline";
 import SettingsIcon from "@material-ui/icons/Settings";
 
+import "../../styles/Header.css";
 import logo from "../../media/google-drive-logo.png";
 
 const index = () => {
