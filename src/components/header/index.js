@@ -9,7 +9,7 @@ import SettingsIcon from "@material-ui/icons/Settings";
 import "../../styles/Header.css";
 import logo from "../../media/google-drive-logo.png";
 
-const index = () => {
+const index = ({ userPhoto }) => {
 	return (
 		<div className='header'>
 			<div className='header__logo'>
@@ -29,7 +29,7 @@ const index = () => {
 					<SettingsIcon />
 				</span>
 				<AppsIcon />
-				<img src='' alt='User Photo' />
+				<img src={userPhoto} alt='' />
 			</div>
 		</div>
 	);
