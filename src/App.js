@@ -1,33 +1,43 @@
 import "./App.css";
 import { useState } from "react";
 
+import logo from "./media/google-drive-logo.png";
+
 import Header from "./components/header";
 import Sidebar from "./components/sidebar";
+import FilesView from "./components/filesView/FilesView";
+import SideIcons from "./components/sideIcons";
+
+import { auth, provider } from "./firebase";
 
 function App() {
-	const [user, setUser] = useState({
-		displayName: "Ahmed Radi",
-		email: "ahmed@radi.com",
-		emailVerified: true,
-		phoneNumber: null,
-		photoURL:
-			"https://images.unsplash.com/photo-1613447326896-c7b8a0ab9b43?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
-	});
+	const [user, setUser] = useState();
 
-	// authentication
+	const handleLogin = () => {
+		if (!user) {
+			auth.signInWithPopup(provider).then((result) => {
+				setUser(result.user);
+			});
+		}
+	};
 
 	return (
-		<div className='App'>
-			<Header userPhoto={user.photoURL} />
-			<Sidebar />
-			{/* 
-			auth = true
-			sidebar
-			filesView
-			sideIcons 
-			*/}
-
-			{/* no auth: log in */}
+		<div className='app'>
+			{user ? (
+				<>
+					<Header userPhoto={user.photoURL} />
+					<div className='app__main'>
+						<Sidebar />
+						<FilesView />
+						<SideIcons />
+					</div>
+				</>
+			) : (
+				<div className='app__login'>
+					<img src={logo} alt='Google Drive' />
+					<button onClick={handleLogin}>Log in to Google Drive</button>
+				</div>
+			)}
 		</div>
 	);
 }
